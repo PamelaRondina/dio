@@ -6,3 +6,4 @@ Olá! Esse é o nosso livro de receitas
 * Pavê
 * Torta de Abobrinha
 * Bolo de Cenoura
+* Patê de Atum
