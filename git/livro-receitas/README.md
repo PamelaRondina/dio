@@ -4,3 +4,4 @@ Olá! Esse é o nosso livro de receitas
 
 * Strogonoff de Frango
 * Pavê
+* Torta de Abobrinha
