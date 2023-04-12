@@ -124,7 +124,7 @@ if (imc < 18.5) {
 
 <hr>
 
-### 3. 
+### 3. Débito,Dinheiro/PIX, Parcelado
 
 3) Elabore um algoritmo que calcule o que deve ser pago por um produto, considerando o preço normal de etiqueta e a escolha da condição de pagamento. 
 Utilize os códigos da tabela a seguir para ler qual a condição de pagamento escolhida e efetuar o cálculo adequado.
@@ -152,5 +152,39 @@ console.log('Você pagará no total: R$ ' + (parceladoMais).toFixed(2));
 
 **Após aula**
 ```javascript
+if (pagamento === 1) {
+    console.log('Forma de Pagamento escolhida: Débito.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + (produto - (produto * 0.10).toFixed(2)));
+} else if (pagamento === 2) {
+    console.log('Forma de Pagamento escolhida: Dinheiro/Pix.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + (produto - (produto * 0.15).toFixed(2)));
+} else if (pagamento === 3) {
+    console.log('Forma de Pagamento escolhida: Parcelado em 2x.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + (produto).toFixed(2));
+} else {
+    console.log('Forma de Pagamento escolhida: Parcelado acima de 2x.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + ((produto + (produto * 0.10)).toFixed(2)));
+}
+```
 
+Adicionar teste 01**************
+
+## Funções
+
+```javascript
+function teste (parametros) {
+    console.log('Teste');
+}
+
+teste();
+teste();
+```
+
+```javascript
+function sayMyName (name) {
+    console.log('Your name is: ' + name);
+}
+
+sayMyName('Pamela');
+sayMyName('Bruno');
 ```
