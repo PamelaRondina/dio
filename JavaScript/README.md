@@ -46,7 +46,7 @@ if (numero === 0) {
 
 ---
 
-## Lista de Exercícios
+## Aula 03 - Lista de Exercícios
 
 ### 1. Exercício Média Nota Aluno
 
@@ -124,7 +124,7 @@ if (imc < 18.5) {
 
 <hr>
 
-### 3. Débito,Dinheiro/PIX, Parcelado
+### 3. Débito, Dinheiro/PIX, Parcelado
 
 3) Elabore um algoritmo que calcule o que deve ser pago por um produto, considerando o preço normal de etiqueta e a escolha da condição de pagamento. 
 Utilize os códigos da tabela a seguir para ler qual a condição de pagamento escolhida e efetuar o cálculo adequado.
@@ -169,7 +169,11 @@ if (pagamento === 1) {
 
 Adicionar teste 01**************
 
-## Funções
+## Aula 04 - Funções
+
+* São trechos de código que podem ser invocados durante a execução de um programa.
+
+> Criar e Chamar Função
 
 ```javascript
 function teste (parametros) {
@@ -179,6 +183,18 @@ function teste (parametros) {
 teste();
 teste();
 ```
+> Função Não Nomeada: Criar Função e Chamar em Seguida Automaticamente
+
+**Neste caso não á necessidade de chamar a função!**
+
+```javascript
+(function () {
+    console.log('Teste');
+})();
+```
+
+
+### Modelo Funções 1
 
 ```javascript
 function sayMyName (name) {
@@ -188,3 +204,182 @@ function sayMyName (name) {
 sayMyName('Pamela');
 sayMyName('Bruno');
 ```
+
+### Modelo Funções 3
+
+```javascript
+function incrementarJuros(valor, percentualJuros) {
+    const valorDeAcrescimo = (percentualJuros / 100) * valor;
+    return valor + valorDeAcrescimo;
+}
+
+console.log(incrementarJuros(100, 10));
+console.log(incrementarJuros(100, 15));`
+```
+
+### Calcular IMC com funcções
+
+```javascript
+function calcularImc(peso, altura) {
+    return peso / Math.pow(altura, 2);
+}
+
+function classificarImc (imc) {
+    if (imc < 18.5) {
+        return 'Você está Abaixo do peso.';
+    } else if (imc >= 18.5 && imc < 25) {
+        return 'Você está com o Peso Normal.';
+    } else if (imc >= 25 && imc < 30) {
+        return 'Você está Acima do Peso';
+    } else if (imc >= 30 && imc < 40) {
+        return 'Você está Obeso';
+    } else {
+        return 'Você está com Obesidade Grave';
+    }
+}
+
+function main (){ 
+    const peso = 80;
+    const altura = 1.81;
+
+    const imc = calcularImc(peso, altura);
+
+    console.log('Seu peso = ' + (peso).toFixed(2) + 'kg');
+    console.log('Sua altura = ' + (altura).toFixed(2) + 'cm');
+    console.log('Seu IMC é: ' + (imc).toFixed(2));
+    console.log(classificarImc(imc));
+}
+
+main();
+```
+
+**Função Não Nomeada**
+```javascript
+function main (){ 
+    const peso = 80;
+    const altura = 1.81;
+
+    const imc = calcularImc(peso, altura);
+
+    console.log('Seu peso = ' + (peso).toFixed(2) + 'kg');
+    console.log('Sua altura = ' + (altura).toFixed(2) + 'cm');
+    console.log('Seu IMC é: ' + (imc).toFixed(2));
+    console.log(classificarImc(imc));
+}
+
+main();
+```
+
+### Exercícios
+
+#### Função "Chamar meu nome"
+
+```javascript
+function seuNome (name) {
+    console.log('My name is ' + name);      
+}
+
+seuNome('Pamela');
+```
+
+#### Função "Recebe idade + Verificar > Idade"
+
+```javascript
+function verificaridade (idade) {
+    if (idade < 18) {
+        console.log('Você é Menor de Idade!')
+    } else {
+        console.log('Você é Maior de Idade')
+    }
+}
+
+verificaridade(18);`
+```
+
+#### Função "Desconto ou Juros"
+
+```javascript
+function aplicarDesconto (valor, desconto){
+    return (valor - (valor * (desconto / 100)));
+}
+
+function aplicarJuros (valor, juros){
+    return (valor + (valor * (juros / 100)));
+}
+
+const produto = 100;
+const pagamento = 4;
+
+//(produto/100*10) = produto *0.10
+
+if (pagamento === 1) {
+    console.log('Forma de Pagamento escolhida: Débito.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + aplicarDesconto(produto, 10).toFixed(2) + '.');
+} else if (pagamento === 2) {
+    console.log('Forma de Pagamento escolhida: Dinheiro/Pix.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + aplicarDesconto(produto, 15).toFixed(2) + '.');
+} else if (pagamento === 3) {
+    console.log('Forma de Pagamento escolhida: Parcelado em 2x.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + (produto).toFixed(2));
+} else {
+    console.log('Forma de Pagamento escolhida: Parcelado acima de 2x.');
+    console.log('Seu produto foi R$ ' + (produto).toFixed(2) + '. Valor pago: R$ ' + aplicarJuros(produto, 10).toFixed(2));
+}
+```
+
+## Aula 05 - Objetos e Classes
+
+### Objetos
+
+> `const pamela = {}`
+
+> Coleções de valores que agrupam valores e funciona através de chave e valor. Coleção dinâmica de chave e valor
+
+
+
+#### Objetos - Modelo 1
+
+```javascript
+const joana = {
+    nome: 'Joana Silva',
+    idade: 28,
+
+};
+
+joana.altura = 1,69;
+delete joana.nome;
+
+console.log(joana);
+console.log(joana.nome);
+console.log(joana.idade);
+```
+
+#### Objetos - Modelo 2
+
+**Inclusão de Método**
+
+> Função dentro de um objeto é chamada de `metodo`. Dentro do `console.log` utilizar ( **`** ), para que <code>${}</code> funcione
+
+```javascript
+const pessoa = {
+    nome: 'Joana Camargo',
+    idade: 30,
+
+    //descrever = método
+    descrever: function () {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+};
+
+//Aqui o console.log irá imprimir os novos dados inclusos abaixo
+pessoa.nome = 'Joaquim';
+pessoa.idade = 30;
+
+pessoa.descrever();
+```
+
+### Classes
+
+classe 
+
+instância

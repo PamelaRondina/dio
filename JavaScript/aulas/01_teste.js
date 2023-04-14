@@ -22,8 +22,18 @@ if (numero % 2 === 0) {
     console.log('Número ímpar');
 } */
 
-const numero = 10;
+/* const numero = 10;
     
 if (numero >= 10) {
     console.log('Sucesso demais!');
-}
+} */
+
+function incrementarJuros(valor, percentualDeJuros) {
+    const incremento = (percentualDeJuros / 100) * valor;
+    return valor + incremento;
+
+   /*  function calcularMedia(nota1, nota2) {
+        const media = (nota1 + nota2) / 2;
+    }
+
+    console.log(calcularMedia(5, 5)); */
