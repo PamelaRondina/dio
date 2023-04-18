@@ -378,8 +378,122 @@ pessoa.idade = 30;
 pessoa.descrever();
 ```
 
+#### Objetos - Modelo 3
+
+**Acessando Atributos**
+
+```javascript
+const pessoa = {
+    nome: 'Joana Camargo',
+    idade: 30,
+
+    //descrever = método
+    descrever: function () {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+};
+
+//acessar atributo [] 
+console.log(pessoa['nome']);
+
+```
+
 ### Classes
 
-classe 
+- [x] Classe: definção do que deveria ser
 
-instância
+> A `function` não precisa ser declarada no método
+
+- [x] Instância: ocorrência de algo
+
+#### Clasess - Modelo 1
+
+```javascript
+class Pessoa {
+    nome; 
+    idade;
+
+    descrever() {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+}
+
+const pamela = new Pessoa();
+pamela.nome = 'Pamela';
+pamela.idade = 30;
+
+const bruno = new Pessoa();
+bruno.nome = 'Bruno';
+bruno.idade = 30;
+
+console.log(pamela);
+console.log(bruno);
+
+pamela.descrever();
+bruno.descrever();
+```
+
+#### Clasess - Modelo 2: CONSTRUCTOR
+
+```javascript
+class Pessoa {
+    nome; 
+    idade;
+
+    constructor(nome, idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    descrever() {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+}
+
+//deve incluir os parâmetros
+const pamela = new Pessoa('Pamela', 30);
+const bruno = new Pessoa('Bruno', 30);
+
+pamela.descrever();
+bruno.descrever();
+```
+
+#### Classes - Modelo 3:  Função 'Quem é o mais velho?'
+
+```javascript
+class Pessoa {
+    nome; 
+    idade;
+
+    constructor(nome, idade) {
+        this.nome = nome;
+        this.idade = idade;
+    }
+
+    descrever() {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+}
+
+function comparaPessoas(p1, p2){
+    if (p1.idade > p2.idade) {
+        console.log(`${p1.nome} é mais velho(a) que ${p2.nome}`);
+    } else if (p2.idade > p1.idade) {
+        console.log(`${p2.nome} é mais velho(a) que ${p1.nome}`);
+    } else {
+        console.log(`${p1.nome} tem a mesma idade que ${p2.nome}`);
+    }
+
+}
+
+//deve incluir os parâmetros
+const pamela = new Pessoa('Pamela', 35);
+const bruno = new Pessoa('Bruno', 30);
+
+//chamar função e incluir os parâmetros
+comparaPessoas(pamela, bruno);
+```
+
+### Exercícios
+
+#### Objetos/Classe: 

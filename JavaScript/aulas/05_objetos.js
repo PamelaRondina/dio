@@ -13,7 +13,7 @@ console.log(joana.nome);
 console.log(joana.idade); */
 
 // MODELO 02
-const pessoa = {
+/* const pessoa = {
     nome: 'Joana Camargo',
     idade: 30,
 
@@ -27,5 +27,18 @@ const pessoa = {
 pessoa.nome = 'Joaquim';
 pessoa.idade = 30;
 
-pessoa.descrever();
+pessoa.descrever(); */
 
+//MODELO 03 - ACESSANDO ATRIBUTOS
+const pessoa = {
+    nome: 'Joana Camargo',
+    idade: 30,
+
+    //descrever = método
+    descrever: function () {
+        console.log(`Meu nome é ${this.nome} e minha idade é ${this.idade}`);
+    }
+};
+
+//acessar atributo [] 
+console.log(pessoa['nome']);
