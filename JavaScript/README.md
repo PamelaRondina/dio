@@ -1,5 +1,8 @@
 # JavaScript
 
+## Curso JavaScript
+
+
 ### Aula 01 - Variáveies e Operadores
 
 Criar arquivo `aula.js`, no terminal rodar o node: `node aula.js`
@@ -404,6 +407,8 @@ console.log(pessoa['nome']);
 
 > A `function` não precisa ser declarada no método
 
+> Nomes de Classes iniciam com letra MAIÚSCULA
+
 - [x] Instância: ocorrência de algo
 
 #### Clasess - Modelo 1
@@ -497,3 +502,322 @@ comparaPessoas(pamela, bruno);
 ### Exercícios
 
 #### Objetos/Classe: 
+
+1) Crie uma classe para representar carros. 
+Os carros possuem uma marca, uma cor e um gasto médio de combustível por Kilômetro rodado.
+Crie um método que dado a quantidade de quilómetros e o preço do combustível nos dê o valor 
+gasto em reais para realizar este percurso.
+
+```javascript
+class Carro {
+    marca;
+    cor;
+    gastoMedioPorKm;
+
+    constructor(marca, cor, gastoMedioPorKm){
+        this.marca = marca;
+        this.cor = cor;
+        this.gastoMedioPorKm = gastoMedioPorKm;
+    }
+
+    calcularViagem(distanciaEmKm, precoCombustivel) {
+        return distanciaEmKm * this.gastoMedioPorKm * precoCombustivel;
+    }
+
+    descrever(){
+        console.log(`A marca: ${this.marca}, de Cor: ${this.cor}.`);
+    }
+    
+}
+
+const foccus = new Carro('Foccus', 'Prata', 1/13);
+foccus.descrever() + console.log('O gasto para a viagem será de R$ ' + foccus.calcularViagem(150, 5.30).toFixed(2));
+```
+
+_________________________________
+
+#### Exercício 2
+
+2) Crie uma classe para representar pessoas.
+Para cada pessoa teremos os atributos nome, peso e altura.
+As pessoas devem ter a capacidade de dizer o valor do seu IMC (IMC = peso / (altura * altura));
+Instancie uma pessoa chamada José que tenha 70kg de peso e 1,75 de altura e peça ao José para dizer o valor
+do seu IMC; */
+
+**Imprimir valor do IMC**
+
+```javascript
+class Pessoa {
+    nome;
+    peso;
+    altura;
+
+    constructor(nome, peso, altura){
+        this.nome = nome;
+        this.peso = peso;
+        this.altura = altura;
+    }
+
+    valorIMC(){
+         var imc = this.peso / (this.altura * this.altura);
+         return imc;
+    }
+
+}
+
+const jose = new Pessoa('José', 70, 1.75);
+console.log(jose);
+console.log(jose.valorIMC());
+```
+
+**Imprimir como está o IMC**
+
+```javascript
+class Pessoa {
+    nome;
+    peso;
+    altura;
+
+    constructor(nome, peso, altura){
+        this.nome = nome;
+        this.peso = peso;
+        this.altura = altura;
+    }
+
+    calculoIMC(){
+        return this.peso / (this.altura * this.altura); 
+    }
+
+    analiseIMC(){
+        const imc = this.calculoIMC();
+        
+         if (imc < 18.5) {
+            return 'Você está Abaixo do peso.';
+        } else if (imc >= 18.5 && imc < 25) {
+            return 'Você está com o Peso Normal.';
+        } else if (imc >= 25 && imc < 30) {
+            return 'Você está Acima do Peso';
+        } else if (imc >= 30 && imc < 40) {
+            return 'Você está Obeso';
+        } else {
+            return 'Você está com Obesidade Grave';
+        }
+    }
+
+    descrever(){
+        console.log(`Olá ${this.nome}, seu peso ${this.peso}kg e sua altura ${this.altura}m`);   
+        console.log('Seu IMC é de: ' + this.calculoIMC().toFixed(2));
+        console.log(this.analiseIMC());       
+    }
+
+}
+
+const jose = new Pessoa('José', 70, 1.75);
+console.log(jose.descrever());
+```
+
+_____________________
+
+## Aula 06 - Arrays (Listas)
+
+### Arrays
+
+> `nomeArray.push('itemNovo)` Novo item na Array
+
+> `nomeArray[posição4] = 'NovoNome'` Novo item em posição específica da Array
+
+> `nomeArray.pop()` Eliminar  o ultimo item de uma Array
+
+```javascript
+const alunos = ['Pedro', 'João', 'Carolina'];
+
+alunos.push('Ana Lúcia');
+
+alunos[5] = 'Catarina';
+
+console.log(alunos);
+console.log(alunos.pop());
+console.log(alunos);
+```
+
+> `nomeArray.shift()` Eliminar  o primeiro item de uma Array
+
+```javascript
+const alunos = ['Pedro', 'João', 'Carolina'];
+
+console.log(alunos);
+console.log(alunos.shift());
+console.log(alunos);
+
+```
+
+> `nomedaArray.length`| Retorna a quantidade de elementos que uma Array possui
+
+
+### Estrutura de Repetição
+
+> `for(início; quantidade de repetição; informações)`
+
+```javascript
+const nome = 'Pamela';
+
+for (let i = 0; i < nome.length; i++) {
+    console.log(nome[i]);
+}
+```
+
+```javascript
+const nome = 'Pamela';
+
+for (let i = 0; i < nome.length; i++) {
+    const letra = nome[i];
+    console.log(letra);
+}
+```
+__________
+
+#### Exercícios - 01
+
+1) Crie um programa que dado um número imprima a sua tabuada.
+
+```javascript
+ const numero = 7;
+    for (let i = 1; i <= 10; i++) {  
+        console.log(i * numero);
+    }
+```
+
+#### Exercícios - 02
+
+2) Crie um programa que seja capaz de percorrer uma lista de números e imprima cada número Par encontrado.
+
+```javascript
+
+const numeros = [2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 22, 34, 50];
+
+   
+    for (let i = 0; i <= numeros.length; i++) {  
+        const numero = numeros[i];
+        if (numero % 2 === 0) {
+        console.log(numero);}
+    }
+```
+
+#### Exercícios - 03
+
+3) Faça um programa que dado uma lista de nomes imprima os nomes que começem com a letra "V".
+
+```javascript
+
+```
+
+#### Exercícios - 04
+
+
+4) Faça um programa que preencha uma lista com todos os números pares contidos no intervalo de 10 a 50;
+
+```javascript
+
+```
+
+#### Exercícios - 05
+
+5) Dado uma lista com as médias tiradas pelos alunos. Imprima todas as médias que ficaram de recuperação (média < 5).
+   Ex de lista = [2, 7, 3, 8, 10, 4]
+
+```javascript
+
+```
+
+#### Exercícios - 06
+
+6) Dado uma lista com as notas tiradas pelos alunos. imprima a maior nota.
+   Ex de lista de notas = [2, 7, 3, 8, 10, 4]
+
+```javascript
+
+```
+_______________
+
+
+## Aula 07 - Importação e Exportação com JavaScript
+
+### Importação e Exportação
+
+**Criação da lista, gets e print**
+
+```javascript
+const entradas = [5, 50, 10, 98, 23];
+let i = 0;
+
+function gets() {
+    const valor = entradas[i];
+    i++;
+    return valor;
+}
+
+function print(texto){
+    console.log(texto);
+}
+
+module.exports = { gets, print };
+
+//main - imprimir a lista**
+
+const { gets, print } = require('./07_importacao_exportacao');
+
+print(gets());
+print(gets());
+print(gets());
+print(gets());
+print(gets());
+```
+
+**Receber 5 números e verificar qual é o maior**
+
+```javascript
+const entradas = [5, 50, 10, 98, 23];
+let i = 0;
+
+function gets() {
+    const valor = entradas[i];
+    i++;
+    return valor;
+}
+
+function print(texto){
+    console.log(texto);
+}
+
+module.exports = { gets, print };
+
+
+//main
+
+const { gets, print } = require('./07_importacao_exportacao');
+
+const quantidadeDeAlunos = gets();
+let maiorValorEncontrado = 0;
+
+for (let i = 0; i < quantidadeDeAlunos; i++) {
+    const numeroSorteado = gets();
+    if (numeroSorteado > maiorValorEncontrado){
+        maiorValorEncontrado = numeroSorteado
+    }
+}
+
+print(maiorValorEncontrado);
+```
+_________
+
+## Pokedex
+
+> instalar biblioteca `npm install -g http-server`
+
+- [x] Criar arquivo `index.html`;
+- [x] No terminal, `http-server ./`
+    - irá disponibilizar os IP's e portas para acessar de um mesmo ambiente: celulares, tabletes, computador
+
+    
+
+
