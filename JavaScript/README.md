@@ -808,16 +808,4 @@ for (let i = 0; i < quantidadeDeAlunos; i++) {
 
 print(maiorValorEncontrado);
 ```
-_________
-
-## Pokedex
-
-> instalar biblioteca `npm install -g http-server`
-
-- [x] Criar arquivo `index.html`;
-- [x] No terminal, `http-server ./`
-    - irá disponibilizar os IP's e portas para acessar de um mesmo ambiente: celulares, tabletes, computador
-
-    
-
 
