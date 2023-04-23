@@ -69,8 +69,7 @@ ol.pokemons li {
     padding: 2rem 1rem;
     border-radius: 1rem;
     background-color: #14A06F;
-    color: #fff;    
-    height: 100px;
+    color: #fff;       
 }
 ```
 
@@ -83,9 +82,59 @@ ol.pokemons li {
       </li>
 ```
 
+Um embaixo do outro: `flex-direction: column;`
+ 
+ 
+Para que a imagem se mantenha dentro do quadrado verde: 
 
+```css
+ol.pokemons li img {
+    max-width: 100%;
+    heigth: 100px;
+    
+}
+```
 
+Apenas imagem para a direita: ` align-self: flex-end;`
 
+**Incluir informações Completas Pokemons**
+
+```html
+<section class="content">
+    <h1>Pokedex</h1>
+
+    <ol class="pokemons">         
+
+      <li class="pokemon">
+        <span class="number">#001</span>
+        <span class="name">Bulbasaur</span>
+        
+        <div class="detail">
+          <ol class="types">
+            <li class="type">grass</li>
+            <li class="type">poison</li>
+          </ol>
+          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/1.png" alt="Bulbasaur">
+        </div>
+
+      </li>
+
+</section>
+```
+
+**Start Media**
+
+```css
+@media screen and (min-width: 380px){
+    .pokemons {
+        grid-template-columns: 1fr 1fr;
+    }    
+}
+```
+
+___________
+
+## Acessando APIS
 
 
 
