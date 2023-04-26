@@ -6,25 +6,84 @@
     list-style: none;
 }
 
+.normal {
+    background-color: #A8A878;
+}
+.fire {
+    background-color: #F08030;
+}
+.water {
+    background-color: #6890F0;
+}
+.grass {
+    background-color: #80D555;
+}
+.electric {
+    background-color: #F8D030;
+}
+.ice {
+    background-color: #98D8D8;
+}
+.ground {
+    background-color: #C03028;
+}
+.flying {
+    background-color: #F85888;
+}
+.poison {
+    background-color: #A040A0;
+}
+.fighting {
+    background-color: #C03028;
+}
+.psychic {
+    background-color: #F85888;
+}
+.dark {
+    background-color: #705848;
+}
+.rock {
+    background-color: #B8A038;
+}
+.bug {
+    background-color: #A8B820;
+}
+.ghost {
+    background-color: #705898;
+}
+.stell {
+    background-color: #B8B8D0;
+}
+.dragon {
+    background-color: #7038F8;
+}
+.fairy {
+    background-color: #FFAEC9;
+}
+
 .pokemon {
     display: flex;
     flex-direction: column;
     margin: .5rem;
     padding: 1rem;
-    border-radius: 1rem;
-    background-color: #49d0b0;     
+    border-radius: 1rem; 
+    
 }
 
 .pokemon .number {
     color: #000;
     opacity: .3;
     text-align: right;
-    font-size: .625rem;
+    font-weight: bold;
+    font-size: 1.2rem;
 }
 
 .pokemon .name {
+    text-transform: capitalize;
     color: #fff;     
     margin-bottom: .25rem;
+    font-weight: bold;
+    font-size: 1.5rem;
     
 }
 
@@ -42,17 +101,38 @@
 }
 
 .pokemon .detail .types .type {
-    background-color: #61e1ca;
     color: #fff;
     padding: .25rem .5rem;
     margin: .25rem 0;
-    font-size: .625rem;
-    border-radius: 1rem;    
+    font-size: 1rem;
+    font-weight: lighter;
+    border-radius: 1rem; 
+    filter: brightness(1.1); 
+    text-align: center;  
 }
 
 .pokemon .detail img {
     max-width: 100%;
-    height: 70px;   
+    height: 80px;   
+}
+
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.pagination button {
+    padding: .25rem .5rem;
+    margin: .25rem 0;
+    font-size: .625rem;
+    color: #fff;
+    background-color: #6c79db;
+    border: none;
+    border-radius: 1rem;
 }
 
 

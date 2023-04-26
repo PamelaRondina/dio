@@ -459,7 +459,7 @@ pokeApi.getPokemons().then((pokemons = []) => {
 Em `poke_api.js`
 - Promisse.all([]) - recebe uma array de promise 
 - then.results - quando a lista terminar terá a lista com os resultados
-- 
+
 
 ```js
 Promise.all([
@@ -471,6 +471,7 @@ Promise.all([
     console.log(results)
 })
 ```
+**deletado**
 
 - Manipular a lista de pokemons, os pokemons possuem `name` e `url`
 
@@ -478,20 +479,314 @@ Promise.all([
 
 Faremos uma nova requisição para cada pokemon
 
-- `return fetch(url)` No servidor , buscou a lista de pokemon pela url
-- `.then((response) => response.json())` converteu a lista para JSON 
-- `.then((jsonBody) => jsonBody.results)` pegamos a lista que estava dentro do JSON convertemos para `pokemons`, que foi transforamda em uma nova lista`pokemon` = `pokemon.map((pokemon)`
-- `fetch(pokemon.url).json()` a nova lista será uma noa lista de response, vamos transformá-la em JSON
-- a nova lista de promessas que vamos esperar que ela serja resolvida
-- e o teremos de verdade é a lista `pokemonDetails`
-
+- `return fetch(url)` No servidor, buscou a lista de pokemon pela url
+- `.then((response) => response.json())` isso nos da um HTTP.response e a lista foi convertida para para JSON
+- `.then((jsonBody) => jsonBody.results)` nos da uma JsonBody com muitos detalhes, porem, queremos apenas os resultados desta lista
+- Pegamos a lista que estava dentro do JSON convertemos para `pokemons`, que foi transforamda em uma nova lista de busca do detalhe`pokemon` = `pokemon.map(pokeApi.getPokemonDetail))`
+- `Promise.all(detailRequests))` estamos esperando que todas as requisições terminem e quando todas elas terminarem, e nos dara uma lista dos pokemons
 
 ```js
-const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+const pokeApi = {}
+
+pokeApi.getPokemonDetail = (pokemon) => {
+    return fetch(pokemon.url).then((response) => response.json())
+}
+
+pokeApi.getPokemons = (offset = 0, limit = 5) => {
+    
+    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`
+   
     return fetch(url)
         .then((response) => response.json())
         .then((jsonBody) => jsonBody.results)
-        .then((pokemon) => pokemon.map((pokemon) => fetch(pokemon.url)))
+        .then((pokemon) => pokemon.map(pokeApi.getPokemonDetail))
+        .then((detailRequests) => Promise.all(detailRequests))
+        .then((pokemonsDetails) => pokemonsDetails)
+        }
 ```
+
+![image](https://user-images.githubusercontent.com/108991648/234299807-1b3396ae-df36-427a-8361-f74cbc4b5550.png)
+
+**Melhorando função: convertPokemonToLi**
+
+```js
+function convertPokemonTypeToLi(pokemonTypes) {
+    return pokemonTypes.map((typeSlot) =>`<li class="type">${typeSlot.type.name}</li>` )
+}
+
+function convertPokemonToLi(pokemon) {
+    return `
+        <li class="pokemon">
+            <span class="number">#${pokemon.order}</span>
+            <span class="name">${pokemon.name}</span>
+            
+            <div class="detail">
+                <ol class="types">
+                    ${convertPokemonTypeToLi(pokemon.types).join(' ')}
+                </ol>
+                <img src="${pokemon.sprites.other.dream_world.front_default}" 
+                alt="${pokemon.name}">
+            </div>
+        </li>
+        `
+}
+```
+
+![image](https://user-images.githubusercontent.com/108991648/234333764-ac51137b-baa8-4edb-93a2-8c6656efe8b8.png)
+
+**Convertendo o modelo da PokeApi para o nosso modelo**
+
+- [x] criar arquivo `pokemon_model.js` e linkar como primeiro no HTML
+
+- Foi convertido do PokeDetail para o novo PokeApi
+
+**pokemon_model.js**
+```js
+
+class Pokemon {
+    number;
+    name;
+    type;
+    types = [];
+    photo;
+}
+```
+
+**poke-api.js**
+```js
+function convertPokeApiDetailToPokemon(pokeDetail) {
+    const pokemon = new Pokemon()
+    pokemon.number = pokeDetail.id
+    pokemon.name = pokeDetail.name
+    
+    const types = pokeDetail.types.map((typeSlot) => typeSlot.type.name)
+    const [type] = types
+
+    pokemon.types = types
+    pokemon.type = type
+    
+    pokemon.photo = pokeDetail.sprites.other.dream_world.front_default
+
+    return pokemon
+}
+```
+
+**main.js**
+```js
+function convertPokemonToLi(pokemon) {
+    return `
+        <li class="pokemon ${pokemon.type}">
+            <span class="number">#${pokemon.number}</span>
+            <span class="name">${pokemon.name}</span>
+            
+            <div class="detail">
+                <ol class="types">
+                    ${pokemon.types.map((type) => `<li class="type">${type}</li>`).join(' ')}
+                </ol>
+                <img src="${pokemon.photo}" 
+                alt="${pokemon.name}">
+            </div>
+        </li>
+        `
+}
+
+const pokemonList = document.getElementById('pokemonList')
+
+pokeApi.getPokemons().then((pokemons = []) => { 
+    pokemonList.innerHTML += pokemons.map(convertPokemonToLi).join('')
+})
+```
+
+__________
+
+**Adicionando os tipos de pokemons dinamicamente**
+
+![image](https://user-images.githubusercontent.com/108991648/234427947-84d5d4d3-8e21-43f5-b569-fa0c33271c8f.png)
+
+No CSS, em `pokedex.css` incluir uma classe com cada cor:
+
+```css
+.normal {
+    background-color: #A8A878;
+}
+.fire {
+    background-color: #F08030;
+}
+.water {
+    background-color: #6890F0;
+}
+.grass {
+    background-color: #80D555;
+}
+.eletric {
+    background-color: #F8D030;
+}
+.ice {
+    background-color: #98D8D8;
+}
+.ground {
+    background-color: #C03028;
+}
+.flying {
+    background-color: #F85888;
+}
+.poison {
+    background-color: #A040A0;
+}
+.fighting {
+    background-color: #C03028;
+}
+.psychic {
+    background-color: #F85888;
+}
+.dark {
+    background-color: #705848;
+}
+.rock {
+    background-color: #B8A038;
+}
+.bug {
+    background-color: #A8B820;
+}
+.ghost {
+    background-color: #705898;
+}
+.stell {
+    background-color: #B8B8D0;
+}
+.dragon {
+    background-color: #7038F8;
+}
+.fairy {
+    background-color: #FFAEC9;
+}
+```
+
+- Eliminar o `background-color` de `.pokemon ` e`.pokemon .detail .types .type`.
+- no `main.js`, alterar:
+
+```js
+     ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join(' ')}
+```
+
+![image](https://user-images.githubusercontent.com/108991648/234430895-752090fa-a1fa-4921-a550-569459eb3275.png)
 <span><img src="" alt=""></img></span>
+
+- Dar brilho para os tipos e incluir letra maiúscula.
+
+```css
+.pokemon .name {  
+    text-transform: capitalize;
+    
+}
+
+.pokemon .detail .types .type {
+        filter: brightness(1.1); 
+        text-align: center;  
+```
+
+![image](https://user-images.githubusercontent.com/108991648/234432273-769a7c07-1866-447e-9cb7-8089e6b796a7.png)
+
+____________
+
+**Adicionando botão de paginação**
+
+- Em HTML, criar div para button:
+
+```html
+    <div class="pagination">
+      <button id="loadMoreButton" type="button">
+          Load More
+      </button>
+    </div>
+</section>
+```
+
+- No CSS, `pokedex.css`:
+
+```css
+.pagination {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+}
+
+.pagination button {
+    padding: .25rem .5rem;
+    margin: .25rem 0;
+    font-size: .625rem;
+    color: #fff;
+    background-color: #6c79db;
+    border: none;
+    border-radius: 1rem;
+}
+```
+
+- Em JS `main.js`:
+
+```js
+const limit = 5;
+let offset =0;
+
+const loadMoreButton = document.getElementById('loadMoreButton')
+
+function loadPokemonItens(offset, limit) {
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+        const newHtml = pokemons.map(convertPokemonToLi).join('')
+        pokemonList.innerHtml += newHtml
+    })
+}
+
+loadMoreButton.addEventListener('click', () => {
+    loadPokemonItens()
+})
+```
+
+Que será alterado para:
+
+```js
+const pokemonList = document.getElementById('pokemonList')
+const loadMoreButton = document.getElementById('loadMoreButton')
+const limit = 5;
+let offset =0;
+
+
+function loadPokemonItens(offset, limit) {
+    pokeApi.getPokemons(offset, limit).then((pokemons = []) => {
+        const newHtml = pokemons.map((pokemon) => `
+                <li class="pokemon ${pokemon.type}">
+                    <span class="number">#${pokemon.number}</span>
+                    <span class="name">${pokemon.name}</span>
+                    
+                    <div class="detail">
+                        <ol class="types">
+                            ${pokemon.types.map((type) => `<li class="type ${type}">${type}</li>`).join('')}
+                        </ol>
+                        <img src="${pokemon.photo}" 
+                        alt="${pokemon.name}">
+                    </div>
+                </li>
+            `).join('')
+
+            pokemonList.innerHtml += newHtml
+    })
+}
+
+loadPokemonItens(offset, limit)
+
+loadMoreButton.addEventListener('click', () => {
+    offset += limit
+    loadPokemonItens(offset, limit)
+})
+```
+
+**Limitando pokempns da 1ª geração**
+
+
+
+
+
 
