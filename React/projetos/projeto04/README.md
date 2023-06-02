@@ -1,70 +1,66 @@
-# Getting Started with Create React App
+## Projeto GitFind - React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FOTO 
 
-## Available Scripts
+## Consumir Dados Externos - API
 
-In the project directory, you can run:
+- [x] Criar Aplicação com React `npx create-react-app nomeArquivo`
 
-### `npm start`
+**Organizar as Pastas**
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- [x] Limpar diretórios e arquivos iniciais;
+- [x] Dentro do `src` criar diretórios: 
+  - `pages`, e dentro criar:
+    - `Home`;
+  - `assets`: para o arquivo de background (Projeto [Figma](https://www.figma.com/file/IXySq1eGSvvY9nSGLbKcom/GitFind?type=design&node-id=2-2&t=xBUw5uMJ2ZaNwWfp-0)):
+  - `components`, e dentro criar os componentes:
+     - `Button`, `Header` e `Input`
+     - Em cada diretório dos componentes criar `index.js` e `styles.css`  
+- [x] Dentro do `src`, criar arquivo:
+  - `styles.css`
+- [x] O arquivo `App.js`, passará a chamar `index.js` e ficará dentro do diretório Home
+- [x] No index. do `src`, Importar: 
+  - `import App from "./pages/Home";`
+  - `"import "./styles.css"`  
+<br>
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- [x]  Em `src`, arquivo principal `style.css`, iniciar estilização:
+  - *, body e hr.
 
-### `npm test`
+~~~css
+  * {
+    margin: 0;
+    padding: 0;
+}
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+body{
+    /*Frame-Figma*/
+    background-color: #1D2128;
+}
 
-### `npm run build`
+hr {
+    background-color: rgba(229, 229, 229, 0.2);
+    border: 1px solid rgba(229, 229, 229, 0.2);
+}
+~~~
+<br>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- [x] No `index.js` do Componente Header:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+> `export { Header }` não será exportado para todos 
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+~~~js
+import "styless.css"
 
-### `npm run eject`
+const Header = () => {
+    return (
+      <header>
+        <h1>GitFind</h1>
+      </header>
+    )
+}
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+export { Header };
+~~~
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- [x] No `index.js` do pages/Home:
