@@ -50,7 +50,7 @@ hr {
 > `export { Header }` não será exportado para todos 
 
 ~~~js
-import "styless.css"
+import "./styles.css"
 
 const Header = () => {
     return (
@@ -64,3 +64,28 @@ export { Header };
 ~~~
 
 - [x] No `index.js` do pages/Home:
+    - importar o estilo do Header;
+    - e puxar o Componente 
+
+~~~js
+import {Header} from "../../components/Header";
+
+function App() {
+  return (
+    <div className="App">
+      <Header />
+      
+    </div>
+  );
+}
+
+export default App;
+
+~~~
+![image](https://github.com/PamelaRondina/PamelaRondina/assets/108991648/4f84d1d8-3dc6-4c55-a0de-a9b97ecdedf2)
+
+- no `stels.css` do Header, incluir estilos:
+
+~~~css
+
+~~~

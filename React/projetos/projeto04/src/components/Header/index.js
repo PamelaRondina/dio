@@ -1,4 +1,4 @@
-import "styless.css"
+import "./styles.css"
 
 const Header = () => {
     return (
