@@ -310,27 +310,212 @@ export default ItemList;
 - [x] E criar `styles.css` 
 
 ~~~css
+.item-list {
+    margin: 24px 0;
+}
+
 .item-list strong {
     color: #539BF5;
     font-size: 24px;
+    margin: 24px 0;
 }
 
-.item-list description {
+.item-list p {
     color: #999999;
-    font-size: 24px; 
+    font-size: 12px; 
+    margin: 24px 0;
 }
 ~~~
 
 - [X] Chamar o componente `ItemList` no `index.js` do pages/Home
   - 1º importar
 
-  > ``import ItemList from "../../components/Itemlist"` não há necessidade de incluir dentro das chaves, porque possui `expor default`
+  > `import ItemList from "../../components/Itemlist"` não há necessidade de incluir dentro das chaves, porque possui `export default`
 
 ~~~js
 import {ItemList} from "../../components/Itemlist"
 
-
-
-
-
+  <hr/>
+          <div>
+            <h4 className="repositorio">Repositórios</h4>
+            <ItemList title="Teste 1" 
+            description="teste de descrição"/>
+            <ItemList title="Teste 1" description="teste de descrição"/>
+            <ItemList title="Teste 1" description="teste de descrição"/>
+          </div>
 ~~~
+
+- Em `styles.css` do pages/Home estilizar:
+
+~~~css
+.repositorio {
+    font-size: 32px;
+    color: #FFFFFF;
+    margin: 12px 0;
+    text-align: center;
+}
+~~~
+
+<hr>
+
+## Buscar API - Requisição com Fetch
+
+- [x] No `index.js` do pages/Homes, criar um estado para armazenar o valor que está no input;
+- [x] E, criar variáveis `useState`.
+
+~~~js
+import {useState} from "react";
+...
+import "./styles.css";
+
+function App() {
+  const [user, setUser] = useState('');
+  
+  return (
+    <div className="App">
+~~~
+
+- [x] No input incluir dados:
+
+> setar o para atualizar o valor do estado
+
+~~~js
+ <input 
+              name="usuario"
+              value={user}
+              onChange={event => setUser(event.target.value)}
+              placeholder="@username"            
+            />
+~~~
+
+- [x] Método que vai buscar os dados, armazenr GitHUb:
+
+~~~js
+  const [currentUser, SetCurrentUser] = useState(null);
+  const [repos, SetRepos] = useState(null);
+~~~
+
+- [x] Criar função assíncrona `handleGetData`, 
+
+> Como estamos buscando dados de uma API exterma, não sabemos quanto tempo vai demorar
+
+- O valor que o usuário incluiu no `input` será registrado em `${user}`
+
+~~~js
+  const handleGetData = async () => {
+    const userData = await fetch(`https://api.github.com/users/${user}`);
+    const newUser = await userData.json();
+
+    console.log(newUser);
+  }
+~~~
+
+- [x] Para a função acima ter efeito, criamos `onClicK` no botão, e chamando a função:
+
+~~~js
+ <button onClick={handleGetData}>Buscar</button> 
+~~~
+
+- [x] Com a página na web, F12, Console. Buscar:
+
+**Buscar os dados do usuário / Salvar**
+  - Foto: `avatar_url`
+  - Nome: `name`
+  - Descrição: `bio`
+  - Nome usuário: `login`
+
+  ~~~js
+  const handleGetData = async () => {
+    const userData = await fetch(`https://api.github.com/users/${user}`);
+    const newUser = await userData.json();
+
+    if(newUser.name){
+      const {avatar_url, name, bio, login} = newUser;
+      SetCurrentUser({avatar_url, name, bio, login})
+    }   
+  }
+~~~
+
+  - [x] Apenas será exibido os repositórios se possui o currentUser.name, todo o perfil vai pra dentro do `{currentUser.name ? (colarPErfil)}`
+
+~~~js
+    ...
+    <button onClick={handleGetData}>Buscar</button>      
+          </div>
+          {currentUser?.name ? (<>
+            <div className="perfil">
+              <img 
+                src="https://avatars.githubusercontent.com/u/108991648?v=4"
+                className="profile"
+                alt="imagem de perfil"
+              />
+              <div>
+                <h3>Pamela Rondina</h3>
+                <span>@pamelarondina</span>
+                <p>Descrição</p>
+              </div>
+            </div>
+            <hr/>
+          </>
+          ): null}
+~~~
+
+  - [x] E o mesmo serve para os repositórios:
+
+~~~js
+    ...
+      ): null}
+          {repos?.length ? (          
+          <div>
+            <h4 className="repositorio">Repositórios</h4>     
+            <ItemList title="Teste 1" description="teste de descrição"/>
+            <ItemList title="Teste 1" description="teste de descrição"/>
+            <ItemList title="Teste 1" description="teste de descrição"/>
+          </div>
+          ): null}
+~~~
+
+**Finalizando Buscas do Usuário**
+
+~~~js
+      ...
+                 <div className="perfil">
+              <img 
+                src={currentUser.avatar_url}
+                className="profile"
+                alt="imagem de perfil"
+              />
+              <div>
+                <h3>{currentUser.name}</h3>
+                <span>@{currentUser.login}</span>
+                <p>{currentUser.bio}</p>
+              </div>
+            </div>
+            <hr/>
+          </>
+~~~
+
+**Buscando dados do repositório**
+
+- [x] Fazer um map, no itemList
+
+  - Nome do repositório: `name`
+  - Descrição do repositório: `description`
+
+  ~~~js
+...
+         <p>{currentUser.bio}</p>
+              </div>
+            </div>
+            <hr/>
+          </>
+          ): null}
+          {repos?.length ? (                 
+          <div>            
+            <h4 className="repositorio">Repositórios</h4>  
+            {repos.map(repo => (
+              <ItemList title={repo.name} description={repo.description}/>
+            ))}       
+          </div>
+          ): null}
+  ~~~
